@@ -824,10 +824,11 @@ class Product {
 
                     pricedata=JSON.parse(DBxhr.responseText);
                     setLoadedPrices(this.typeid,pricedata.sell,pricedata.buy,origin_product);
+                    this.handlePriceChange();
                    
                 }
             }
-            this.handlePriceChange();
+            //this.handlePriceChange();
             DBxhr.open("GET","./get_market_data.php?typeid="+this.typeid,true);
             DBxhr.send();
         }
