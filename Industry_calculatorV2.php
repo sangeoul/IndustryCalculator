@@ -384,12 +384,12 @@ Item list may not be complete. Feel free to request to Lindows#7129 (Discord) ad
 </font>
 <br/><br/>
 <table>
-<tr><td><img src="https://images.evetech.net/characters/92371624/portrait?size=64"></td><td><font style="font-size:20px;">Lindows Hakurei : Developer</font></td></tr>
+<tr><td><img src="https://images.evetech.net/characters/92371624/portrait?size=64"></td><td><font style="font-size:24px;">Lindows Hakurei : Developer</font></td></tr>
 </table>
 <br>
-<font style="font-size:24px;">Donator : </font><br><br>
+<font style="font-size:26px;">Donator : </font><br><br>
 <table>
-<tr><td><img src="https://images.evetech.net/characters/95285543/portrait?size=64"></td><td><font style="font-size:20px;">popori Keikira : 2.0 Bil ISK</font></td></tr>
+<tr><td><img src="https://images.evetech.net/characters/95285543/portrait?size=64"></td><td><font style="font-size:24px;">popori Keikira : 7.0 Bil ISK</font></td></tr>
 
 <tr><td><img src="https://images.evetech.net/characters/92594273/portrait?size=64"></td><td><font style="font-size:20px;">rikka takanashi :  1 Roasted Chicken (+ Coke)</font></td></tr>
 <tr><td><img src="https://images.evetech.net/characters/97015907/portrait?size=64"></td><td><font style="font-size:20px;">whitejicon kwon : 500 mil ISK</font></td></tr>
