@@ -5,6 +5,12 @@ dbset();
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json");
 
+ if(isset($_GET["itemname"]) && !isset($_GET["typeid"])){
+    $qr="select typeid from EVEDB_Item where itemname=\"".$_GET["itemname"]."\" and published=1";
+    $result=$dbcon->query($qr);
+    $result_ar=$result->fetch_row();
+    $_GET["typeid"]=$result_ar[0];
+ }
     
 //바이가 쿼리 / 셀가 쿼리 조성
 $bqr="select price from Industry_Marketorders where typeid=".$_GET["typeid"]." and quantity>0 and is_buy_order=1 order by time desc, price desc limit 2";

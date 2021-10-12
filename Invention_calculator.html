@@ -1,0 +1,170 @@
+<html>
+    <head>
+
+        <style>
+            table, td, tr {
+                border:1px solid black;
+                border-collapse: collapse;
+
+            }
+            
+        </style>
+        <script src="./Invention_calculator.js"></script>
+    </head>
+    <body>
+        최적 Decryptor 계산기.<br><br>
+        쉽, 리그 인벤션(기본 Run 수 1) 시에 사용하세요. 모듈의 경우 기본 인벤션 Run 수가 10이기 때문에 대부분 디크립터를 안 쓰는 것이 이득입니다.<br><br>
+        <br><br>
+        Datacore 가격은 기본적으로 DB에서 불러오긴 하지만, 직접 입력도 가능합니다.<br><br>
+        
+        <table>
+            <tr><td>Blueprint</td><td>Blueprint Price</td><td>Material Cost</td></tr>
+            <tr>
+                <td>    
+                    <!--              
+                    <input id="blueprint" name="blueprint" list="blueprint_datalist" value="입력 안 해도 됨." /> 
+                        <datalist id="blueprint_datalist" style="size:300px;">
+                        </datalist>
+                    </input>
+                -->
+                </td>
+                <td>
+                    <input id="blueprint_price" name="blueprint_price" type=number value=0 />
+                </td>
+                <td><input id="material_cost" name="material_cost" type=number value=0 /></td>
+            </tr>
+            <tr><td colspan=3>Materials</td></tr>
+            <tr><td>Name</td><td>Number</td><td>Price</td></tr>
+            <tr>
+                <td>
+                    
+                    <input id="mat1" list="mat1_datalist" onchange="javascript:loadMaterialPrice(1)" > 
+                        <datalist id="mat1_datalist" name="mat1_datalist">
+                        </datalist>
+                </td>
+                <td><input id="mat1num" name="mat1num" type="number" value=1 onchange="javascript:calcMaterialPrice(1)"/></td>
+                <td><input id="mat1price" name="mat1price" type="number" value=0 onchange="javascript:calcMaterialPrice(1)" /><br>
+                <span id="mat1sum">0</span></td>
+                <td>
+                    <input type="radio" id="mat1sell" name="mat1sb" value="sell" onclick="javascript:loadMaterialPrice(1)" checked >Sell<br>
+                    <input type="radio" id="mat1buy" name="mat1sb" value="buy" onclick="javascript:loadMaterialPrice(1)">Buy
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="mat2" list="mat2_datalist" onchange="javascript:loadMaterialPrice(2)"> 
+                    <datalist id="mat2_datalist" name="mat2_datalist">
+                    </datalist>
+                </td>
+                <td><input id="mat2num" name="mat2num" type="number" value=1 onchange="javascript:calcMaterialPrice(2)" /></td>
+                <td><input id="mat2price" name="mat2price" type="number" value=0 onchange="javascript:calcMaterialPrice(2)" /><br>
+                    <span id="mat2sum">0</span>
+                </td>
+                <td>
+                    <input type="radio" id="mat2sell" name="mat2sb" value="sell" onclick="javascript:loadMaterialPrice(2)" checked>Sell<br>
+                    <input type="radio" id="mat2buy" name="mat2sb" value="buy" onclick="javascript:loadMaterialPrice(2)">Buy
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="mat3" list="mat3_datalist" onchange="javascript:loadMaterialPrice(3)"> 
+                    <datalist id="mat3_datalist" name="mat3_datalist">
+                    </datalist>
+                </td>
+                <td><input id="mat3num" name="mat3num" type="number" value=1 onchange="javascript:calcMaterialPrice(3)" /></td>
+                <td><input id="mat3price" name="mat3price" type="number" value=0 onchange="javascript:calcMaterialPrice(3)" /><br>
+                    <span id="mat3sum">0</span>
+                </td>
+                <td>
+                    <input type="radio" id="mat3sell" name="mat3sb" value="sell" onclick="javascript:loadMaterialPrice(3)" checked>Sell<br>
+                    <input type="radio" id="mat3buy" name="mat3sb" value="buy" onclick="javascript:loadMaterialPrice(3)">Buy
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input id="mat4" list="mat4_datalist" onchange="javascript:loadMaterialPrice(4)"> 
+                    <datalist id="mat4_datalist" name="mat4_datalist">
+                    </datalist>
+                </td>
+                <td><input id="mat4num" name="mat4num" type="number" value=1 onchange="javascript:calcMaterialPrice(4)" /></td>
+                <td><input id="mat4price" name="mat4price" type="number" value=0 onchange="javascript:calcMaterialPrice(4)" /><br>
+                    <span id="mat4sum">0</span>
+                </td>
+                <td>
+                    <input type="radio" id="mat4sell" name="mat4sb" value="sell" onclick="javascript:loadMaterialPrice(4)" checked>Sell<br>
+                    <input type="radio" id="mat4buy" name="mat4sb" value="buy" onclick="javascript:loadMaterialPrice(4)">Buy
+                </td>
+            </tr>
+        </table>
+        <br><Br>
+        <table>
+            <tr>
+                <td>Ranking</td>
+                <td>Decryptor</td>
+                <td>Calculation </td>
+                <td>Profit</td>
+            </tr>
+
+            <tr>
+                <td>1</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Decryptor<br> P.M +0% / Run +0 / ME +0% </td>
+                <td>Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </td>
+                <td>result</td>
+            </tr>
+        </table>
+    </body>
+</html>
+
+<script>
+    let mat1_datalist=document.getElementById("mat1_datalist");
+    let mat2_datalist=document.getElementById("mat2_datalist");
+    let mat3_datalist=document.getElementById("mat3_datalist");
+    let mat4_datalist=document.getElementById("mat4_datalist");
+
+    loadDatacoreList(mat1_datalist);
+    loadDatacoreList(mat2_datalist);
+    loadDatacoreList(mat3_datalist);
+    loadDatacoreList(mat4_datalist);
+</script>
