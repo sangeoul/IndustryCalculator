@@ -1,5 +1,86 @@
+const DEC_ACCELERANT =34201;
+const DEC_ATTAINMENT =34202;
+const DEC_AUGMENTATION =34203;
+const DEC_OPTIMIZED_ATTAINMENT =34207;
+const DEC_OPTIMIZED_AUGMENTATION =34208;
+const DEC_PARITY =34204;
+const DEC_PROCESS =34205;
+const DEC_SYMMETRY =34206;
 
 
+let decryptors:Map<number,any>= new Map();
+decryptors.set(DEC_ACCELERANT,{
+    name:"Accelerant",
+    rate_bonus:20,
+    multi_bonus:1,
+    me_bonus:2,
+    //te_bonus:number,
+    price:0  
+    
+});
+decryptors.set(DEC_ATTAINMENT,{
+    name:'Attainment',
+    rate_bonus:80,
+    multi_bonus:4,
+    me_bonus:-1,
+    //te_bonus:number,
+    price:0   
+    
+});
+decryptors.set(DEC_AUGMENTATION,{
+    name:'Augmentation',
+    rate_bonus:-40,
+    multi_bonus:9,
+    me_bonus:-2,
+    //te_bonus:number,
+    price:0  
+    
+});
+decryptors.set(DEC_OPTIMIZED_ATTAINMENT,{
+    name:'Optimized Attainmemt',
+    rate_bonus:90,
+    multi_bonus:2,
+    me_bonus:1,
+    //te_bonus:number,
+    price:0  
+    
+});
+decryptors.set(DEC_OPTIMIZED_AUGMENTATION,{
+    name:'Optimized Augmentation',
+    rate_bonus:-10,
+    multi_bonus:7,
+    me_bonus:2,
+    //te_bonus:number,
+    price:0  
+    
+});
+decryptors.set(DEC_PARITY,{
+    name:'Parity',
+    rate_bonus:50,
+    multi_bonus:3,
+    me_bonus:1,
+    //te_bonus:number,
+    price:0  
+    
+});
+decryptors.set(DEC_PROCESS,{
+    name: 'Process',
+    rate_bonus:10,
+    multi_bonus:0,
+    me_bonus:3,
+    //te_bonus:number,
+    price:0   
+    
+});
+decryptors.set(DEC_SYMMETRY,{
+    name:'Symmetry',
+    rate_bonus:0,
+    multi_bonus:2,
+    me_bonus:1,
+    //te_bonus:number,
+    price:0   
+    
+});
 
 function calcMaterialPrice(n:number){
     let span_result:HTMLSpanElement = document.getElementById("mat"+n+"sum");
@@ -56,8 +137,75 @@ function loadDatacoreList( datalist:HTMLDataListElement){
 }
 
 
-function getJsonByURL(url:string){
+function calcDecryptorEfficiency(dec:number){
+    
+    
+    let invention_cost:number[]=
+    [0,parseFloat(document.getElementById('mat1sum').innerHTML),parseFloat(document.getElementById('mat2sum').innerHTML),parseFloat(document.getElementById('mat3sum').innerHTML),parseFloat(document.getElementById('mat4sum').innerHTML)];
+    
+    let invention_cost_sum:number=0;
+    for(let i=0;i<6;i++){
+        invention_cost_sum+=invention_cost[i];
+    }
 
+
+    let rate_bonus:number =decryptors.get(dec).rate_bonus;
+    let multi_bonus:number =decryptors.get(dec).multi_bonus;
+    let me_bonus:number =decryptors.get(dec).me_bonus;
+    let decryptor_price:number =decryptors.get(dec).price;
+    
+    let base_rate:number =parseFloat((document.getElementById('base_probability') as HTMLInputElement).value);
+    let blueprint_price:number =parseFloat((document.getElementById('blueprint_price') as HTMLInputElement).value);
+    let manufacturing_cost:number =parseFloat((document.getElementById('manufacturing_cost') as HTMLInputElement).value);
+    
+    let profit=((1+rate_bonus)*multi_bonus -1)*(invention_cost_sum+blueprint_price) + (manufacturing_cost*me_bonus*(1+rate_bonus)*multi_bonus*base_rate)- decryptor_price;
+    
+    return profit;
+}
+
+function getDecryptorPrice(n:number){
+    decryptors.forEach((value,key,mapObject)=> {decryptors.set(key,
+            {
+                name:value.name,
+                rate_bonus:value.rate_bonus,
+                multi_bonus:value.multi_bonus,
+                me_bonus:value.me_bonus,
+                price:  parseFloat((document.getElementById('dec'+key+'price') as HTMLInputElement).value)
+            }
+        )
+        console.log(value.name + " : " + decryptors.get(key).price + "ISK");
+
+        }
+    ) ;
+
+}
+
+function rankDecryptor(){
+    let cost:any=[[34201,0],[34202,0],[34203,0],[34204,0],[34205,0],[34206,0],[34207,0],[34208,0]];
+    for(let i=0;i<8;i++){
+        cost[i][1]=calcDecryptorEfficiency(cost[i][0]);
+    }
+
+    for(let i=0;i<8;i++){
+        for(let j=i+1;j<8;j++){
+            if(cost[i][1]<cost[j][1]){
+                let id=cost[i][0],isk=cost[i][1];
+                cost[i][0]=cost[j][0];
+                cost[i][1]=cost[j][1];
+                cost[j][0]=id;
+                cost[j][1]=isk;
+            }
+        }
+    }
+
+    for(let i=0;i<8;i++){
+        (document.getElementById('dec'+(i+1)) as HTMLSpanElement).innerHTML= decryptors.get(cost[i][0]).name;
+        (document.getElementById('dec'+(i+1)+"profit") as HTMLSpanElement).innerHTML=cost[i][1]+" ISK";
+    }   
+    
+}
+
+function getJsonByURL(url:string){
 
     var xhr=new XMLHttpRequest();  
     var returndata;

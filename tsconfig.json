@@ -5,7 +5,7 @@
       "removeComments": true,
       "preserveConstEnums": true,
       "sourceMap": true,
-      "modeResolution":"node",
-      "allowJs":true
+      "allowJs":true,
+      "target":"ES6"
     }
   }
