@@ -8,7 +8,9 @@ const DEC_PROCESS =34205;
 const DEC_SYMMETRY =34206;
 
 
-let decryptors:Map<number,any>= new Map();
+
+let decryptors= new Map();
+
 decryptors.set(DEC_ACCELERANT,{
     name:"Accelerant",
     rate_bonus:20,
@@ -82,7 +84,9 @@ decryptors.set(DEC_SYMMETRY,{
     
 });
 
+
 function calcMaterialPrice(n:number){
+
     let span_result:HTMLSpanElement = document.getElementById("mat"+n+"sum");
 
     let input_num : HTMLInputElement=(document.getElementById("mat"+n+"num")) as HTMLInputElement;
@@ -101,6 +105,29 @@ function loadMaterialPrice(n:number){
     input_price.value=price[radio.value];
     calcMaterialPrice(n);
 
+}
+
+function loadDecryptorPrice(n:number){
+
+    let input_price =document.getElementById("dec"+n+"price") as HTMLInputElement;
+    let radio =document.querySelector("input[name=dec"+n+"sb]:checked") as HTMLInputElement;
+
+    let price:any =getJsonByURL("https://lindows.kr/IndustryCalculator/get_market_data.php?id="+n);
+    
+    input_price.value=price[radio.value];
+    getDecryptorPrice(n);
+
+}
+
+function decryptorPriceControl(order:string){
+    
+    for(let i=34201;i<=34208;i++){
+        let radio:HTMLInputElement =document.querySelector("#dec"+i+order) as HTMLInputElement;
+        radio.setAttribute("checked","checked");
+        loadDecryptorPrice(i);
+    }
+    
+    
 }
 
 function loadDatacoreList( datalist:HTMLDataListElement){
@@ -145,7 +172,7 @@ function calcDecryptorEfficiency(dec:number){
     
     let invention_cost_sum:number=0;
     for(let i=0;i<6;i++){
-        invention_cost_sum+=invention_cost[i];
+        invention_cost_sum +=invention_cost[i];
     }
 
 
@@ -164,7 +191,20 @@ function calcDecryptorEfficiency(dec:number){
 }
 
 function getDecryptorPrice(n:number){
-    decryptors.forEach((value,key,mapObject)=> {decryptors.set(key,
+    
+    let dec = decryptors.get(n);
+    decryptors.set(n,
+            {
+                name:dec.name,
+                rate_bonus:dec.rate_bonus,
+                multi_bonus:dec.multi_bonus,
+                me_bonus:dec.me_bonus,
+                price:  parseFloat((document.getElementById('dec'+n+'price') as HTMLInputElement).value)
+            }
+        )
+        console.log(dec.name + " : " + decryptors.get(n).price + "ISK");
+   
+   /* decryptors.forEach((value,key,mapObject)=> {decryptors.set(key,
             {
                 name:value.name,
                 rate_bonus:value.rate_bonus,
@@ -177,7 +217,9 @@ function getDecryptorPrice(n:number){
 
         }
     ) ;
+*/
 
+    rankDecryptor();
 }
 
 function rankDecryptor(){

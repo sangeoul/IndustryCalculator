@@ -110,27 +110,32 @@
         
         <table>
             <tr>
-                <td>
+                <td width=220>
                 Decryptor 가격
                 </td>
-                <td> 
+                <td width=250> 
                 <span id="decryptor_price"> 
-                    <input type="radio" id="decryptor_sell" name="decryptor_sb" value="sell" checked /> Sell / 
-                    <input type="radio" id="decryptor_buy" name="decryptor_sb" value="buy" /> Buy 
+                    <input type="radio" id="decryptor_sell" name="decryptor_sb" value="sell" checked onclick="javascript:decryptorPriceControl('sell')" /> Sell / 
+                    <input type="radio" id="decryptor_buy" name="decryptor_sb" value="buy" onclick="javascript:decryptorPriceControl('buy')" /> Buy 
                 </span>
                 </td>
-                <td>
-                <a href="javascript:setDecryptorPrice"> 직접 입력</a>
-                </td>
+                <td width=220>
+                
+                <a id='show_decryptor_price_table' href="javascript:document.getElementById('show_decryptor_price_table').setAttribute('style','display:none');document.getElementById('hide_decryptor_price_table').setAttribute('style','display:initial');document.getElementById('decryptor_price_table').setAttribute('style','display:initial');"> 직접 입력 </a>
+                <a id='hide_decryptor_price_table' href="javascript:document.getElementById('show_decryptor_price_table').setAttribute('style','display:initial');document.getElementById('hide_decryptor_price_table').setAttribute('style','display:none');document.getElementById('decryptor_price_table').setAttribute('style','display:none');" style="display:none">리스트 접기</a>
+                </t+d>
             </tr>
             <tr>
-                <td>
+                <td colspan=3>
+                <table id="decryptor_price_table" style="display:none">
+                <tr>
+                    <td width=215>
                 Accelerant
                 </td>
-                <td>
+                <td width=245>
                     <input id="dec34201price" type='number' value=0 />
                 </td>
-                <td>
+                <td width=215>
                     <input type="radio" id="dec34201sell" name="dec34201sb" value="sell" checked /> Sell / 
                     <input type="radio" id="dec34201buy" name="dec34201sb" value="buy" /> Buy 
                 </td>
@@ -221,6 +226,9 @@
             </tr>
             
         </table>
+        </td>
+        </tr>
+        </table>
         <table>
             <tr>
                 <td>Ranking</td>
@@ -231,49 +239,49 @@
 
             <tr>
                 <td>1</td>
-                <td><span id='dec1' name='dec1' style='dec1st'>Decryptor</span><br><span id='dec1info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec1'name='dec1' style='dec1st'>Decryptor</span><br><span id='dec1info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec1calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec1profit'>result</span></td>
             </tr>
              <tr>
                 <td>2</td>
-                <td><span id='dec2' name='dec2' style='dec2nd'>Decryptor</span><br><span id='dec2info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec2'name='dec2' style='dec2nd'>Decryptor</span><br><span id='dec2info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec2calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec2profit'>result</span></td>
             </tr>
             <tr>
                 <td>3</td>
-                <td><span id='dec3' name='dec3' style='dec3rd'>Decryptor</span><br><span id='dec3info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec3'name='dec3' style='dec3rd'>Decryptor</span><br><span id='dec3info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec3calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec3profit'>result</span></td>
             </tr>
             <tr>
                 <td>4</td>
-                <td><span id='dec4' name='dec4' style='dec3rd'>Decryptor</span><br><span id='dec4info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec4'name='dec4' style='dec3rd'>Decryptor</span><br><span id='dec4info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec4calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec4profit'>result</span></td>
             </tr>
             <tr>
                 <td>5</td>
-                <td><span id='dec5' name='dec5' style='dec3rd'>Decryptor</span><br><span id='dec5info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec5'name='dec5' style='dec3rd'>Decryptor</span><br><span id='dec5info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec5calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec5profit'>result</span></td>
             </tr>
             <tr>
                 <td>6</td>
-                <td><span id='dec6' name='dec6' style='dec3rd'>Decryptor</span><br><span id='dec6info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec6'name='dec6' style='dec3rd'>Decryptor</span><br><span id='dec6info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec6calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec6profit'>result</span></td>
             </tr>
             <tr>
                 <td>7</td>
-                <td><span id='dec7' name='dec7' style='dec3rd'>Decryptor</span><br><span id='dec7info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec7'name='dec7' style='dec3rd'>Decryptor</span><br><span id='dec7info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec7calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec7profit'>result</span></td>
             </tr>
             <tr>
                 <td>8</td>
-                <td><span id='dec8' name='dec8' style='dec3rd'>Decryptor</span><br><span id='dec8info'> P.M +0% / Run +0 / ME +0%</span> </td>
+                <td><span id='dec8'name='dec8' style='dec3rd'>Decryptor</span><br><span id='dec8info'> P.M +0% / Run +0 / ME +0%</span> </td>
                 <td><span id='dec8calc'>'Inv.cost * (Inv.eff-1) + (Mat.cost * ME bonus * Inv.eff) - Decryptor price </span></td>
                 <td><span id='dec8profit'>result</span></td>
             </tr>
@@ -282,7 +290,6 @@
 </html>
 
 <script>
-
     let mat1_datalist=document.getElementById("mat1_datalist");
     let mat2_datalist=document.getElementById("mat2_datalist");
     let mat3_datalist=document.getElementById("mat3_datalist");
@@ -292,5 +299,4 @@
     loadDatacoreList(mat2_datalist);
     loadDatacoreList(mat3_datalist);
     loadDatacoreList(mat4_datalist);
-
 </script>

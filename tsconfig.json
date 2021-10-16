@@ -6,6 +6,7 @@
       "preserveConstEnums": true,
       "sourceMap": true,
       "allowJs":true,
-      "target":"ES6"
+      "target":"ES6",
+      "lib": ["ES6","DOM"]
     }
   }
