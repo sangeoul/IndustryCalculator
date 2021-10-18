@@ -37,11 +37,11 @@
             </tr>
             <tr>  
                 <td>
-                    <input id="blueprint_price" name="blueprint_price" type=number value=0 /> ISK
+                    <input id="blueprint_price" name="blueprint_price" type=number value=0 onchange="javascript:rankDecryptor();" /> ISK
                 </td>
                 <td>
-                <input id='base_probability' type=number step=0.1 value=30 /> %
-                <td><input id="manufacturing_cost" name="manufacturing_cost" type=number value=0 /> ISK</td>
+                <input id='base_probability' type=number step=0.1 value=30 onchange="javascript:rankDecryptor();" /> %
+                <td><input id="manufacturing_cost" name="manufacturing_cost" type=number value=0 onchange="javascript:rankDecryptor();" /> ISK</td>
             </tr>
             <tr><td colspan=3>Materials</td></tr>
             <tr><td>Name</td><td>Number</td><td>Price</td></tr>

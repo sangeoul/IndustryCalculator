@@ -73,6 +73,7 @@ function calcMaterialPrice(n) {
     let input_num = (document.getElementById("mat" + n + "num"));
     let input_price = (document.getElementById("mat" + n + "price"));
     span_result.innerHTML = Intl.NumberFormat().format(parseInt(input_num.value) * parseFloat(input_price.value));
+    rankDecryptor();
 }
 function loadMaterialPrice(n) {
     let input_material = document.getElementById("mat" + n);
@@ -101,27 +102,27 @@ function decryptorPriceControl(order) {
 }
 function loadDatacoreList(datalist) {
     let dataoptions = "";
-    dataoptions += "<option value=\"Datacore - Defensive Subsystems Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Propulsion Subsystems Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Core Subsystems Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Hydromagnetic Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Minmatar Starship Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - High Energy Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Gallentean Starship Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Plasma Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Laser Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Quantum Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Molecular Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Electromagnetic Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Nanite Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Electronic Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Graviton Physics\" />\n";
-    dataoptions += "<option value=\"Datacore - Rocket Science\" />\n";
     dataoptions += "<option value=\"Datacore - Amarrian Starship Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Caldari Starship Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Core Subsystems Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Defensive Subsystems Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Electromagnetic Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - Electronic Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Gallentean Starship Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Graviton Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - High Energy Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - Hydromagnetic Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - Laser Physics\" />\n";
     dataoptions += "<option value=\"Datacore - Mechanical Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Minmatar Starship Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Molecular Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Nanite Engineering\" />\n";
     dataoptions += "<option value=\"Datacore - Nuclear Physics\" />\n";
     dataoptions += "<option value=\"Datacore - Offensive Subsystems Engineering\" />\n";
-    dataoptions += "<option value=\"Datacore - Caldari Starship Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Plasma Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - Propulsion Subsystems Engineering\" />\n";
+    dataoptions += "<option value=\"Datacore - Quantum Physics\" />\n";
+    dataoptions += "<option value=\"Datacore - Rocket Science\" />\n";
     dataoptions += "<option value=\"Datacore - Triglavian Quantum Engineering\" />\n";
     dataoptions += "<option value=\"Other materials\" />\n";
     datalist.innerHTML = dataoptions;
@@ -182,7 +183,7 @@ function rankDecryptor() {
             = "P.M " + (dec.rate_bonus > 0 ? "+" + dec.rate_bonus : dec.rate_bonus) + "% / "
                 + "Run +" + dec.multi_bonus + " / "
                 + "M.E " + (dec.me_bonus > 0 ? "+" + dec.me_bonus : dec.me_bonus);
-        Intl.NumberFormat().format(document.getElementById('dec' + (i + 1) + "profit").innerHTML = cost[i][1]) + " ISK";
+        document.getElementById('dec' + (i + 1) + "profit").innerHTML = Intl.NumberFormat().format(cost[i][1]) + " ISK";
     }
 }
 function getJsonByURL(url) {
