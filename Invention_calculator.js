@@ -6,7 +6,12 @@ const DEC_OPTIMIZED_AUGMENTATION = 34208;
 const DEC_PARITY = 34204;
 const DEC_PROCESS = 34205;
 const DEC_SYMMETRY = 34206;
-let decryptors = new Map();
+window.onload = function () {
+    for (let i = 34201; i <= 34208; i++) {
+        loadDecryptorPrice(i);
+    }
+};
+var decryptors = new Map();
 decryptors.set(DEC_ACCELERANT, {
     name: "Accelerant",
     rate_bonus: 20,
@@ -80,14 +85,17 @@ function loadMaterialPrice(n) {
 function loadDecryptorPrice(n) {
     let input_price = document.getElementById("dec" + n + "price");
     let radio = document.querySelector("input[name=dec" + n + "sb]:checked");
-    let price = getJsonByURL("https://lindows.kr/IndustryCalculator/get_market_data.php?id=" + n);
+    let price = getJsonByURL("https://lindows.kr/IndustryCalculator/get_market_data.php?typeid=" + n);
     input_price.value = price[radio.value];
+    console.log(decryptors.get(n).name + " : " + price[radio.value] + "ISK");
     getDecryptorPrice(n);
 }
 function decryptorPriceControl(order) {
     for (let i = 34201; i <= 34208; i++) {
-        let radio = document.querySelector("#dec" + i + order);
-        radio.setAttribute("checked", "checked");
+        document.getElementById("dec" + i + "sell").removeAttribute("checked");
+        document.getElementById("dec" + i + "buy").removeAttribute("checked");
+        document.getElementById("dec" + i + order).setAttribute("checked", "checked");
+        ;
         loadDecryptorPrice(i);
     }
 }
@@ -119,9 +127,15 @@ function loadDatacoreList(datalist) {
     datalist.innerHTML = dataoptions;
 }
 function calcDecryptorEfficiency(dec) {
-    let invention_cost = [0, parseFloat(document.getElementById('mat1sum').innerHTML), parseFloat(document.getElementById('mat2sum').innerHTML), parseFloat(document.getElementById('mat3sum').innerHTML), parseFloat(document.getElementById('mat4sum').innerHTML)];
+    let invention_cost = [
+        0,
+        parseFloat(document.getElementById('mat1price').value) * parseFloat(document.getElementById('mat1num').value),
+        parseFloat(document.getElementById('mat2price').value) * parseFloat(document.getElementById('mat2num').value),
+        parseFloat(document.getElementById('mat3price').value) * parseFloat(document.getElementById('mat3num').value),
+        parseFloat(document.getElementById('mat4price').value) * parseFloat(document.getElementById('mat4num').value)
+    ];
     let invention_cost_sum = 0;
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 5; i++) {
         invention_cost_sum += invention_cost[i];
     }
     let rate_bonus = decryptors.get(dec).rate_bonus;
@@ -143,7 +157,6 @@ function getDecryptorPrice(n) {
         me_bonus: dec.me_bonus,
         price: parseFloat(document.getElementById('dec' + n + 'price').value)
     });
-    console.log(dec.name + " : " + decryptors.get(n).price + "ISK");
     rankDecryptor();
 }
 function rankDecryptor() {
@@ -163,8 +176,13 @@ function rankDecryptor() {
         }
     }
     for (let i = 0; i < 8; i++) {
-        document.getElementById('dec' + (i + 1)).innerHTML = decryptors.get(cost[i][0]).name;
-        document.getElementById('dec' + (i + 1) + "profit").innerHTML = cost[i][1] + " ISK";
+        let dec = decryptors.get(cost[i][0]);
+        document.getElementById('dec' + (i + 1)).innerHTML = dec.name;
+        document.getElementById('dec' + (i + 1) + "info").innerHTML
+            = "P.M " + (dec.rate_bonus > 0 ? "+" + dec.rate_bonus : dec.rate_bonus) + "% / "
+                + "Run +" + dec.multi_bonus + " / "
+                + "M.E " + (dec.me_bonus > 0 ? "+" + dec.me_bonus : dec.me_bonus);
+        Intl.NumberFormat().format(document.getElementById('dec' + (i + 1) + "profit").innerHTML = cost[i][1]) + " ISK";
     }
 }
 function getJsonByURL(url) {

@@ -8,8 +8,14 @@ const DEC_PROCESS =34205;
 const DEC_SYMMETRY =34206;
 
 
+window.onload=function(){
+    for(let i=34201; i<=34208;i++){
+        loadDecryptorPrice(i);
+    }
+    
+}
 
-let decryptors= new Map();
+var decryptors= new Map();
 
 decryptors.set(DEC_ACCELERANT,{
     name:"Accelerant",
@@ -112,9 +118,12 @@ function loadDecryptorPrice(n:number){
     let input_price =document.getElementById("dec"+n+"price") as HTMLInputElement;
     let radio =document.querySelector("input[name=dec"+n+"sb]:checked") as HTMLInputElement;
 
-    let price:any =getJsonByURL("https://lindows.kr/IndustryCalculator/get_market_data.php?id="+n);
+    let price:any =getJsonByURL("https://lindows.kr/IndustryCalculator/get_market_data.php?typeid="+n);
     
     input_price.value=price[radio.value];
+
+    console.log(decryptors.get(n).name + " : " + price[radio.value] + "ISK");
+
     getDecryptorPrice(n);
 
 }
@@ -122,8 +131,11 @@ function loadDecryptorPrice(n:number){
 function decryptorPriceControl(order:string){
     
     for(let i=34201;i<=34208;i++){
-        let radio:HTMLInputElement =document.querySelector("#dec"+i+order) as HTMLInputElement;
-        radio.setAttribute("checked","checked");
+        document.getElementById("dec"+i+"sell").removeAttribute("checked");
+        document.getElementById("dec"+i+"buy").removeAttribute("checked");
+
+        (document.getElementById("dec"+i+order) as HTMLInputElement).setAttribute("checked","checked");;
+    
         loadDecryptorPrice(i);
     }
     
@@ -168,10 +180,16 @@ function calcDecryptorEfficiency(dec:number){
     
     
     let invention_cost:number[]=
-    [0,parseFloat(document.getElementById('mat1sum').innerHTML),parseFloat(document.getElementById('mat2sum').innerHTML),parseFloat(document.getElementById('mat3sum').innerHTML),parseFloat(document.getElementById('mat4sum').innerHTML)];
+    [
+        0,
+        parseFloat((document.getElementById('mat1price') as HTMLInputElement).value) * parseFloat((document.getElementById('mat1num') as HTMLInputElement).value) ,
+        parseFloat((document.getElementById('mat2price') as HTMLInputElement).value) * parseFloat((document.getElementById('mat2num') as HTMLInputElement).value),
+        parseFloat((document.getElementById('mat3price') as HTMLInputElement).value) * parseFloat((document.getElementById('mat3num') as HTMLInputElement).value),
+        parseFloat((document.getElementById('mat4price') as HTMLInputElement).value) * parseFloat((document.getElementById('mat4num') as HTMLInputElement).value)
+    ];
     
     let invention_cost_sum:number=0;
-    for(let i=0;i<6;i++){
+    for(let i=0;i<5;i++){
         invention_cost_sum +=invention_cost[i];
     }
 
@@ -185,7 +203,8 @@ function calcDecryptorEfficiency(dec:number){
     let blueprint_price:number =parseFloat((document.getElementById('blueprint_price') as HTMLInputElement).value);
     let manufacturing_cost:number =parseFloat((document.getElementById('manufacturing_cost') as HTMLInputElement).value);
     
-    let profit=((1+rate_bonus)*multi_bonus -1)*(invention_cost_sum+blueprint_price) + (manufacturing_cost*me_bonus*(1+rate_bonus)*multi_bonus*base_rate)- decryptor_price;
+    let profit= ((1+rate_bonus)*multi_bonus -1)*(invention_cost_sum+blueprint_price) + (manufacturing_cost*me_bonus*(1+rate_bonus)*multi_bonus*base_rate)- decryptor_price;
+    
     
     return profit;
 }
@@ -201,8 +220,8 @@ function getDecryptorPrice(n:number){
                 me_bonus:dec.me_bonus,
                 price:  parseFloat((document.getElementById('dec'+n+'price') as HTMLInputElement).value)
             }
-        )
-        console.log(dec.name + " : " + decryptors.get(n).price + "ISK");
+        );
+        
    
    /* decryptors.forEach((value,key,mapObject)=> {decryptors.set(key,
             {
@@ -241,12 +260,16 @@ function rankDecryptor(){
     }
 
     for(let i=0;i<8;i++){
-        (document.getElementById('dec'+(i+1)) as HTMLSpanElement).innerHTML= decryptors.get(cost[i][0]).name;
-        (document.getElementById('dec'+(i+1)+"profit") as HTMLSpanElement).innerHTML=cost[i][1]+" ISK";
+        let dec=decryptors.get(cost[i][0]);
+        (document.getElementById('dec'+(i+1)) as HTMLSpanElement).innerHTML= dec.name;
+        (document.getElementById('dec'+(i+1)+"info") as HTMLSpanElement).innerHTML 
+        = "P.M " + (dec.rate_bonus>0?"+"+dec.rate_bonus:dec.rate_bonus) + "% / " 
+        + "Run +" + dec.multi_bonus + " / "
+        + "M.E " + (dec.me_bonus>0?"+"+dec.me_bonus:dec.me_bonus);
+        Intl.NumberFormat().format((document.getElementById('dec'+(i+1)+"profit") as HTMLSpanElement).innerHTML=cost[i][1])+" ISK";
     }   
     
 }
-
 function getJsonByURL(url:string){
 
     var xhr=new XMLHttpRequest();  

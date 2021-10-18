@@ -252,7 +252,7 @@ $dbcon->query("insert into iplogs (userid,username,ip,registered,page) values ("
     <br>
     <table class="bonustable">
     <tr>
-        <td class="expand_bonus"><span id="expand_bonus_triangle" class="expand_bonus_triangle" onclick="javascript:toggle_bonus_table()">Default▶</span></td>
+        <td class="expand_bonus"><span id="expand_bonus_triangle" class="expand_bonus_triangle" onclick="javascript:toggle_bonus_table();">Default▶</span></td>
         <td class="bonus"><img src="./images/ma_mebonus.png" class="bonus"></td>
         <td><span id="ma_mebonus" class="bonus"></span>%　　</td>
         <td class="bonus"><img src="./images/ma_rigbonus.png" class="bonus"></td>
@@ -338,12 +338,12 @@ function toggle_bonus_table(){
         document.getElementById("set_bonus_table").style.display="none";
         document.getElementById("expand_bonus_triangle").innerHTML="Default▶";
         updateAmount();
-        display_bonus_table=0;
+        display_bonus_table=false;
     }
     else{
         document.getElementById("set_bonus_table").style.display="block";
         document.getElementById("expand_bonus_triangle").innerHTML="Default▼"
-        display_bonus_table=1;        
+        display_bonus_table=true;        
     }
     
 
