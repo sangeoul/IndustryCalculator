@@ -203,7 +203,7 @@ function calcDecryptorEfficiency(dec:number){
     let blueprint_price:number =parseFloat((document.getElementById('blueprint_price') as HTMLInputElement).value);
     let manufacturing_cost:number =parseFloat((document.getElementById('manufacturing_cost') as HTMLInputElement).value);
     
-    let profit= ((1+rate_bonus)*multi_bonus -1)*(invention_cost_sum+blueprint_price) + (manufacturing_cost*me_bonus*(1+rate_bonus)*multi_bonus*base_rate)- decryptor_price;
+    let profit= ((1+(rate_bonus/100))*multi_bonus -1)*(invention_cost_sum+blueprint_price) + (manufacturing_cost*(me_bonus/100)*(1+(rate_bonus/100))*multi_bonus*(base_rate/100))- decryptor_price;
     
     
     return profit;

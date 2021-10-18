@@ -145,7 +145,7 @@ function calcDecryptorEfficiency(dec) {
     let base_rate = parseFloat(document.getElementById('base_probability').value);
     let blueprint_price = parseFloat(document.getElementById('blueprint_price').value);
     let manufacturing_cost = parseFloat(document.getElementById('manufacturing_cost').value);
-    let profit = ((1 + rate_bonus) * multi_bonus - 1) * (invention_cost_sum + blueprint_price) + (manufacturing_cost * me_bonus * (1 + rate_bonus) * multi_bonus * base_rate) - decryptor_price;
+    let profit = ((1 + (rate_bonus / 100)) * multi_bonus - 1) * (invention_cost_sum + blueprint_price) + (manufacturing_cost * (me_bonus / 100) * (1 + (rate_bonus / 100)) * multi_bonus * (base_rate / 100)) - decryptor_price;
     return profit;
 }
 function getDecryptorPrice(n) {
